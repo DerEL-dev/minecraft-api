@@ -26,5 +26,5 @@ profile_extendet_link = "https://sessionserver.mojang.com/session/minecraft/prof
 uuid_to_name_link = "https://api.mojang.com/user/profiles/" + player_uuid + "/names"
 #----Code----#
 
-print("The Player" + name + " has changed their user name from " + str(getData(uuid_to_name_link)[-1]["name"]) + " to " + name + " at " + str(decodeMinecraftTimestamp(getData(uuid_to_name_link)[-1]['changedToAt'])))
+print("The Player " + name + " has changed their user name from " + str(getData(uuid_to_name_link)[0]["name"]) + " to " + name + " at the date " + str(decodeMinecraftTimestamp(getData(uuid_to_name_link)[-1]['changedToAt'])))
 
