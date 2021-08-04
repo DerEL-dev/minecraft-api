@@ -1,0 +1,30 @@
+import requests
+from datetime import datetime
+import time
+import json
+
+#----Variablen----#
+name = "Dream"
+now = datetime.timestamp(datetime.now())
+player_uuid = ""
+#----Funktionen----#
+def getData(data):
+    r = requests.get(data)
+    time.sleep(1.1)
+    return r.json()
+def decodeMinecraftTimestamp(timestamp):
+    timestamp = str(timestamp)
+    new_number = timestamp.rstrip(timestamp[-1])
+    timestamp = int(new_number)
+    return datetime.fromtimestamp(timestamp)
+
+#----Links----#
+profile_link = "https://api.mojang.com/users/profiles/minecraft/" + name
+profile_link_now = "https://api.mojang.com/users/profiles/minecraft/" + name + "?at=" + str(now)
+player_uuid = getData(profile_link_now)["id"]
+profile_extendet_link = "https://sessionserver.mojang.com/session/minecraft/profile/" + player_uuid
+uuid_to_name_link = "https://api.mojang.com/user/profiles/" + player_uuid + "/names"
+#----Code----#
+
+print("The Player" + name + " has changed their user name from " + str(getData(uuid_to_name_link)[-1]["name"]) + " to " + name + " at " + str(decodeMinecraftTimestamp(getData(uuid_to_name_link)[-1]['changedToAt'])))
+
